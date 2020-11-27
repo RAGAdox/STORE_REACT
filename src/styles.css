@@ -7,3 +7,10 @@
 body {
   background: #343a40;
 }
+/*STICKY FOOTER*/
+/*.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}*/
