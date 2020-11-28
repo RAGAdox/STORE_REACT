@@ -4,8 +4,8 @@ import Base from "../core/Base";
 import { signIn, authenticate, isAuthenticated } from "../auth/helper";
 const Signin = () => {
   const [values, setValues] = useState({
-    email: "",
-    password: "",
+    email: "rishirishi20121997@gmail.com",
+    password: "rishirishi882",
     error: "",
     loading: false,
     didRedirect: false,
@@ -20,7 +20,6 @@ const Signin = () => {
     return (
       loading && (
         <div className="alert alert-info col-md-6 offset-sm-3 text-center">
-          <i className="fas fa-truck-loading    "></i>
           loading ...
         </div>
       )
@@ -45,8 +44,8 @@ const Signin = () => {
       }
     }
     if (isAuthenticated()) {
-      //return <Redirect to="/" />;
-      console.log(isAuthenticated());
+      return <Redirect to="/" />;
+      //console.log(isAuthenticated());
     }
   };
 
@@ -70,7 +69,7 @@ const Signin = () => {
           });
         }
       })
-      .catch(console.log("Sign in failed"));
+      .catch((err) => console.log("Sign in failed"));
   };
   const signInForm = () => {
     return (
