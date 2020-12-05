@@ -4,8 +4,8 @@ import Base from "../core/Base";
 import { signIn, authenticate, isAuthenticated } from "../auth/helper";
 const Signin = () => {
   const [values, setValues] = useState({
-    email: "rishirishi20121997@gmail.com",
-    password: "rishirishi882",
+    email: "rishi@gmail.com",
+    password: "Rishi@1997",
     error: "",
     loading: false,
     didRedirect: false,
@@ -38,9 +38,9 @@ const Signin = () => {
   const performRedirect = () => {
     if (didRedirect) {
       if (user && user.role === 1) {
-        return <p>Redirect to admin</p>;
+        return <Redirect to="/admin/dashboard" />;
       } else {
-        return <p>Redirect to user</p>;
+        return <Redirect to="/user/dashboard" />;
       }
     }
     if (isAuthenticated()) {
@@ -98,7 +98,6 @@ const Signin = () => {
               Submit
             </button>
           </form>
-          <p className="text-white text-center">{JSON.stringify(values)}</p>
         </div>
       </div>
     );
