@@ -15,19 +15,29 @@ import AddCategory from "./admin/AddCategory";
 import AddProduct from "./admin/AddProduct";
 import ManageCategory from "./admin/ManageCategory";
 import ManageProduct from "./admin/ManageProducts";
+import UpdateProduct from "./admin/UpdateProduct";
 export default function Routes() {
   return (
     <Router>
       <Switch>
         <Route path="/" exact component={Home} />
-        <Route path="/signup" component={Signup} />
-        <Route path="/signin" component={Signin} />
-        <PrivateRoute path="/user/dashboard" component={UserDashboard} />
-        <AdminRoute path="/admin/dashboard" component={AdminDashboard} />
-        <AdminRoute path="/admin/create/category" component={AddCategory} />
-        <AdminRoute path="/admin/create/product" component={AddProduct} />
-        <AdminRoute path="/admin/category" component={ManageCategory} />
-        <AdminRoute path="/admin/product" component={ManageProduct} />
+        <Route path="/signup" exact component={Signup} />
+        <Route path="/signin" exact component={Signin} />
+        <PrivateRoute path="/user/dashboard" exact component={UserDashboard} />
+        <AdminRoute path="/admin/dashboard" exact component={AdminDashboard} />
+        <AdminRoute
+          path="/admin/create/category"
+          exact
+          component={AddCategory}
+        />
+        <AdminRoute path="/admin/create/product" exact component={AddProduct} />
+        <AdminRoute path="/admin/category" exact component={ManageCategory} />
+        <AdminRoute path="/admin/product" exact component={ManageProduct} />
+        <AdminRoute
+          path="/admin/product/update/:productId"
+          exact
+          component={UpdateProduct}
+        />
       </Switch>
     </Router>
   );

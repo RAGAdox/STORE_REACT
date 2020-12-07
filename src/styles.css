@@ -6,10 +6,14 @@
 .border {
   border-width: 0.2em !important;
 }
+.main-body-scroll {
+  padding-bottom: 5rem !important;
+}
 body {
   background: #343a40;
-  min-height: 50rem;
+  min-height: auto;
   padding-top: 50px;
+
   /*padding-top: 4.5rem;*/
 }
 .main-body {
@@ -28,6 +32,14 @@ body {
   bottom: 0;
   /*width: 100%;*/
 }
+/*LESS TEXT */
+.text-compress {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 4; /* number of lines to show */
+  -webkit-box-orient: vertical;
+}
 @media screen and (min-width: 768px) {
   body {
     padding-top: 0px;
@@ -44,7 +56,14 @@ div.loading {
   background-color: rgba(16, 16, 16, 0.5);
   z-index: 1100;
 }
-
+/*Horizontal Card*/
+.card-horizontal {
+  display: flex;
+  flex: 1 1 auto;
+}
+.card-img {
+  width: 10rem !important;
+}
 @-webkit-keyframes uil-ring-anim {
   0% {
     -ms-transform: rotate(0deg);

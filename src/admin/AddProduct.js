@@ -74,9 +74,24 @@ const AddProduct = () => {
     console.log("Change captured");
     //setValues({ ...values, error: false, [name]: event.target.value });
     setValues({ ...values, error: false });
-    const value = name === "photo" ? event.target.files[0] : event.target.value;
-    formData.set(name, value);
-    setValues({ ...values, [name]: value });
+    setSuccess(false);
+    if (name !== "photo") {
+      const value = event.target.value;
+      formData.set(name, value);
+      setValues({ ...values, [name]: value });
+    } else {
+      console.log("File added");
+
+      for (let i = 0; i < event.target.files.length; i++) {
+        const value = event.target.files[i];
+        //formData.set(name, value);
+        formData.append(name, value);
+
+        //console.log("FILE;-", value);
+        //console.log("FORM DATA", formData);
+        setValues({ ...values, [name]: value });
+      }
+    }
   };
   const onSubmit = (event) => {
     event.preventDefault();
@@ -86,12 +101,13 @@ const AddProduct = () => {
         if (data.error) {
           setValues({ ...values, error: data.error });
         } else {
+          formData.delete("photo");
           setValues({
             ...values,
             name: "",
             description: "",
             price: "",
-            photo: "",
+            photo: [],
             category: "",
             stock: "",
             loading: false,

@@ -13,7 +13,7 @@ export default function Base({
   return (
     <div>
       <Menu />
-      <div className="container-fluid ">
+      <div className="container-fluid main-body-scroll">
         <div className="jumbotron bg-dark text-white text-center main-body">
           <h2 className="display-4">{title}</h2>
           <p className="lead">{description}</p>

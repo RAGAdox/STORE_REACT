@@ -4,8 +4,8 @@ export const scrollToTop = () => {
   window.scrollTo(0, 0);
 };
 export const loadingBanner = () => (
-  <div class="loading">
-    <div class="uil-ring-css">
+  <div className="loading">
+    <div className="uil-ring-css">
       <div></div>
     </div>
   </div>
@@ -17,3 +17,4 @@ export const goAdminHome = () => (
     </Link>
   </div>
 );
+export const shrinkText = (text, className) => {};
