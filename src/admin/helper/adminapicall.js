@@ -104,3 +104,38 @@ export const getProduct = (productId) => {
     })
     .catch((err) => console.log(err));
 };
+//Add Product Photo
+export const addProductPhoto = (productId, userId, token, photo) => {
+  return fetch(`${API}/product/photo/${productId}/${userId}`, {
+    method: "PUT",
+    headers: {
+      Accept: "application/json",
+      Authorization: `bearer ${token}`,
+    },
+    body: photo,
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+export const deleteProductPhoto = (productId, userId, token, photoPath) => {
+  return fetch(
+    `${API}/product/photo/${productId}/${userId}?path=${photoPath}`,
+    {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        Authorization: `bearer ${token}`,
+      },
+    }
+  )
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};

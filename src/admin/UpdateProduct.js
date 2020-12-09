@@ -5,7 +5,9 @@ import { isAuthenticated } from "../auth/helper";
 import Base from "../core/Base";
 import { goAdminHome, loadingBanner } from "../core/utility";
 import {
+  addProductPhoto,
   createCategory,
+  deleteProductPhoto,
   getCategories,
   getProduct,
   updateProduct,
@@ -90,7 +92,7 @@ const UpdateProduct = ({ match }) => {
     });
 
   const handleChange = (name) => (event) => {
-    setValues({ ...values, error: false });
+    setValues({ ...values, error: false, updatedProduct: undefined });
     setSuccess(false);
     if (name !== "photo") {
       const value = event.target.value;
@@ -121,27 +123,45 @@ const UpdateProduct = ({ match }) => {
   };
 
   const removeSelectedPhoto = (path) => {
-    //
+    setValues({ ...values, error: false, updatedProduct: undefined });
+    deleteProductPhoto(match.params.productId, user._id, token, path)
+      .then((data) => {
+        if (!data || data.error) {
+          setValues({ ...values, error: data.error });
+        }
+        setValues({ ...values, photo: data.photo });
+      })
+      .catch((err) => {
+        return console.log(err);
+      });
   };
-  const addPhoto = () => {
-    //
+  const addPhoto = (event) => {
+    setValues({ ...values, error: false, updatedProduct: undefined });
+    let photoForm = new FormData();
+    photoForm.set("photo", event.target.files[0]);
+    addProductPhoto(match.params.productId, user._id, token, photoForm)
+      .then((data) => {
+        setValues({ ...values, photo: data.photo, updatedProduct: data.name });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
-  /*const showPhotos = () => {
-    if (photo && photo.length !== 0)
-      for (let i = 0; i < photo.length; i++) {
-        <img
-          className="card-img col-md-3"
-          src={`${API}/product/photo/${match.params.productId}?path=${photo[i]}`}
-        />;
-      }
-  };*/
   const showPhotos = () =>
     photo.map((path, index) => {
       return (
-        <img
-          className="card-img col-md-3"
-          src={`${API}/product/photo/${match.params.productId}?path=${path}`}
-        />
+        <div key={index} className="card-img close-div m-1">
+          <span
+            className="close bg-white rounded btn"
+            onClick={() => removeSelectedPhoto(path)}
+          >
+            &times;
+          </span>
+          <img
+            className="img-thumbnail m-1 img-fluid"
+            src={`${API}/product/photo/${match.params.productId}?path=${path}`}
+          />
+        </div>
       );
     });
   const successMessage = () =>
@@ -159,25 +179,22 @@ const UpdateProduct = ({ match }) => {
   const updateProductForm = () => {
     return (
       <form>
-        <div className="form-group row d-flex align-middle">
-          <label className="col-md-2 col-form-label">Photos</label>
+        <div className="form-group row d-flex align-middle ">
+          <input type="file" id="actual-btn" hidden onChange={addPhoto} />
+          <label
+            className="actual-btn-upload m-1 btn btn-primary align-middle img-thumbnail m-1 img-fluid"
+            htmlFor="actual-btn"
+          >
+            {"File Upload"}
+          </label>
           {showPhotos()}
-          <input
-            onChange={handleChange("photo")}
-            type="file"
-            className="col-md-10 form-control mx-1"
-            name="photo"
-            accept="image"
-            placeholder="choose a file"
-            multiple
-          />
         </div>
         <div className="form-group row">
           <label className="col-md-2 col-form-label">Name</label>
           <input
-            className="col-md-10 form-control mx-1"
+            className="col-md-9 form-control mx-1"
             onChange={handleChange("name")}
-            name="photo"
+            name="name"
             placeholder="Name"
             value={name}
           />
@@ -186,8 +203,8 @@ const UpdateProduct = ({ match }) => {
           <label className="col-md-2 col-form-label">Description</label>
           <textarea
             onChange={handleChange("description")}
-            name="photo"
-            className="col-md-10 form-control mx-1"
+            name="description"
+            className="col-md-9 form-control mx-1"
             placeholder="Description"
             value={description}
           />
@@ -197,7 +214,7 @@ const UpdateProduct = ({ match }) => {
           <input
             onChange={handleChange("price")}
             type="number"
-            className="col-md-10 form-control mx-1"
+            className="col-md-9 form-control mx-1"
             placeholder="Price"
             value={price}
           />
@@ -206,7 +223,7 @@ const UpdateProduct = ({ match }) => {
           <label className="col-md-2 col-form-label">Category</label>
           <select
             onChange={handleChange("category")}
-            className="form-control mx-1 col-md-10"
+            className="form-control mx-1 col-md-9"
             placeholder="Category"
             value={category}
           >
@@ -219,7 +236,7 @@ const UpdateProduct = ({ match }) => {
           <input
             onChange={handleChange("stock")}
             type="number"
-            className="form-control mx-1 col-md-10"
+            className="form-control mx-1 col-md-9"
             placeholder="Quantity"
             value={stock}
           />

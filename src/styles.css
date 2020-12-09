@@ -40,6 +40,17 @@ body {
   -webkit-line-clamp: 4; /* number of lines to show */
   -webkit-box-orient: vertical;
 }
+
+/*CUSTOME FILE UPLOAD FOR UPDATE*/
+.custom-file-input {
+  opacity: 1 !important;
+}
+.actual-btn-upload {
+  width: 10rem !important;
+  height: 10rem !important;
+  max-width: 10rem !important;
+  max-height: 10rem !important;
+}
 @media screen and (min-width: 768px) {
   body {
     padding-top: 0px;
@@ -57,12 +68,24 @@ div.loading {
   z-index: 1100;
 }
 /*Horizontal Card*/
+.scroll {
+  overflow-x: scroll;
+}
 .card-horizontal {
   display: flex;
   flex: 1 1 auto;
 }
 .card-img {
-  width: 10rem !important;
+  max-width: 10rem !important;
+}
+.close-div {
+  position: relative;
+}
+.close {
+  position: absolute;
+  background: #fff;
+  top: 2px;
+  right: 2px;
 }
 @-webkit-keyframes uil-ring-anim {
   0% {
