@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { API } from "../backend";
 import { isAuthenticated } from "../auth/helper";
 import Base from "../core/Base";
-import { goAdminHome, loadingBanner } from "../core/utility";
+import { goAdminHome, goCreateProduct, loadingBanner } from "../core/utility";
 import {
   addProductPhoto,
   createCategory,
@@ -47,7 +47,7 @@ const UpdateProduct = ({ match }) => {
   const preload = (productId) => {
     getCategories()
       .then((data) => {
-        if (data.error) {
+        if (!data || data.error) {
           setValues({ ...values, error: "Unable to get Categories" });
         } else {
           return data;
@@ -56,8 +56,11 @@ const UpdateProduct = ({ match }) => {
       .then((cate) => {
         getProduct(productId).then((data) => {
           if (data) {
-            if (data.error) {
-              setValues({ ...values, error: data.error });
+            if (!data || data.error) {
+              setValues({
+                ...values,
+                error: data.error ? data.error : "Empty Data",
+              });
             } else {
               setValues({
                 ...values,
@@ -92,8 +95,9 @@ const UpdateProduct = ({ match }) => {
     });
 
   const handleChange = (name) => (event) => {
-    setValues({ ...values, error: false, updatedProduct: undefined });
     setSuccess(false);
+    setValues({ ...values, error: false });
+    console.log("Change occured", updatedProduct);
     if (name !== "photo") {
       const value = event.target.value;
       formData.set(name, value);
@@ -102,6 +106,7 @@ const UpdateProduct = ({ match }) => {
   };
   const onSubmit = (event) => {
     event.preventDefault();
+    setSuccess(false);
     setValues({ ...values, error: "", loading: true });
     updateProduct(match.params.productId, user._id, token, formData).then(
       (data) => {
@@ -114,6 +119,7 @@ const UpdateProduct = ({ match }) => {
               updatedProduct: data.name,
               loading: false,
             });
+            setSuccess(true);
           }
         } else {
           setValues({ ...values, error: "No Data Received" });
@@ -123,25 +129,52 @@ const UpdateProduct = ({ match }) => {
   };
 
   const removeSelectedPhoto = (path) => {
-    setValues({ ...values, error: false, updatedProduct: undefined });
+    setSuccess(false);
+    setValues({
+      ...values,
+      loading: true,
+      error: false,
+      updatedProduct: undefined,
+    });
     deleteProductPhoto(match.params.productId, user._id, token, path)
       .then((data) => {
         if (!data || data.error) {
-          setValues({ ...values, error: data.error });
+          setValues({ ...values, error: data.error || "No Data Received" });
         }
-        setValues({ ...values, photo: data.photo });
+        setValues({ ...values, photo: data.photo, loading: false });
+        setSuccess(true);
       })
       .catch((err) => {
         return console.log(err);
       });
   };
   const addPhoto = (event) => {
-    setValues({ ...values, error: false, updatedProduct: undefined });
+    setSuccess(false);
+    setValues({
+      ...values,
+      error: false,
+      updatedProduct: undefined,
+      loading: true,
+    });
     let photoForm = new FormData();
     photoForm.set("photo", event.target.files[0]);
     addProductPhoto(match.params.productId, user._id, token, photoForm)
       .then((data) => {
-        setValues({ ...values, photo: data.photo, updatedProduct: data.name });
+        if (!data || data.error) {
+          setValues({
+            ...values,
+            error: data.error,
+            updateProduct: undefined,
+          });
+        } else {
+          setValues({
+            ...values,
+            photo: data.photo,
+            updatedProduct: data.name,
+            loading: false,
+          });
+          setSuccess(true);
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -150,7 +183,7 @@ const UpdateProduct = ({ match }) => {
   const showPhotos = () =>
     photo.map((path, index) => {
       return (
-        <div key={index} className="card-img close-div m-1">
+        <div key={index} className="align-self-center card-img close-div m-1">
           <span
             className="close bg-white rounded btn"
             onClick={() => removeSelectedPhoto(path)}
@@ -165,16 +198,14 @@ const UpdateProduct = ({ match }) => {
       );
     });
   const successMessage = () =>
-    updatedProduct && (
+    success && (
       <h4 className="text-success">
         Product {updatedProduct} was updated successfully
       </h4>
     );
 
   const warningMessage = () =>
-    error && (
-      <h4 className="text-warning">Unable to create product {`\n ${error}`}</h4>
-    );
+    error && <h4 className="text-warning">Unable to update product</h4>;
 
   const updateProductForm = () => {
     return (
@@ -182,7 +213,7 @@ const UpdateProduct = ({ match }) => {
         <div className="form-group row d-flex align-middle ">
           <input type="file" id="actual-btn" hidden onChange={addPhoto} />
           <label
-            className="actual-btn-upload m-1 btn btn-primary align-middle img-thumbnail m-1 img-fluid"
+            className="align-self-center actual-btn-upload m-1 btn btn-primary align-middle img-thumbnail m-1 img-fluid"
             htmlFor="actual-btn"
           >
             {"File Upload"}

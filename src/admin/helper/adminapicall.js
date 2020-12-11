@@ -4,6 +4,7 @@ import { API } from "../../backend";
 export const createCategory = (userId, token, category) => {
   return fetch(`${API}/category/create/${userId}`, {
     method: "POST",
+
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
@@ -36,6 +37,7 @@ export const getCategories = () => {
 export const createProduct = (userId, token, product) => {
   return fetch(`${API}/product/create/${userId}`, {
     method: "POST",
+
     headers: {
       Accept: "application/json",
       Authorization: `Bearer ${token}`,
@@ -65,6 +67,7 @@ export const getProducts = () => {
 export const deleteProduct = (productId, userId, token) => {
   return fetch(`${API}/product/${productId}/${userId}`, {
     method: "DELETE",
+
     headers: {
       Accept: "application/json",
       Authorization: `Bearer ${token}`,
@@ -81,6 +84,7 @@ export const deleteProduct = (productId, userId, token) => {
 export const updateProduct = (productId, userId, token, product) => {
   return fetch(`${API}/product/${productId}/${userId}`, {
     method: "PUT",
+
     headers: {
       Accept: "application/json",
       Authorization: `Bearer ${token}`,
@@ -108,6 +112,7 @@ export const getProduct = (productId) => {
 export const addProductPhoto = (productId, userId, token, photo) => {
   return fetch(`${API}/product/photo/${productId}/${userId}`, {
     method: "PUT",
+
     headers: {
       Accept: "application/json",
       Authorization: `bearer ${token}`,
@@ -118,7 +123,7 @@ export const addProductPhoto = (productId, userId, token, photo) => {
       return response.json();
     })
     .catch((err) => {
-      console.log(err);
+      return { error: "Unable to add photos to product" };
     });
 };
 export const deleteProductPhoto = (productId, userId, token, photoPath) => {
@@ -126,6 +131,7 @@ export const deleteProductPhoto = (productId, userId, token, photoPath) => {
     `${API}/product/photo/${productId}/${userId}?path=${photoPath}`,
     {
       method: "DELETE",
+
       headers: {
         Accept: "application/json",
         Authorization: `bearer ${token}`,

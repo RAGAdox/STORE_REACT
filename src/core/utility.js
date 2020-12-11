@@ -17,4 +17,5 @@ export const goAdminHome = () => (
     </Link>
   </div>
 );
+
 export const shrinkText = (text, className) => {};

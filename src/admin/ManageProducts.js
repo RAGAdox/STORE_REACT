@@ -20,7 +20,6 @@ const ManageProduct = () => {
         } else setError(data.error);
       }
     });
-    console.log(productArray);
   };
   useEffect(() => {
     loadProducts();
