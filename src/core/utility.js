@@ -17,5 +17,6 @@ export const goAdminHome = () => (
     </Link>
   </div>
 );
+export const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
 export const shrinkText = (text, className) => {};

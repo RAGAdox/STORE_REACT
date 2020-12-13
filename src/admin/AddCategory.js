@@ -1,12 +1,14 @@
 import React, { useState } from "react";
-import { isAuthenticated } from "../auth/helper";
-import { Link } from "react-router-dom";
+import { isAuthenticated, signOut } from "../auth/helper";
+import { Link, Redirect } from "react-router-dom";
 import Base from "../core/Base";
 import { createCategory } from "./helper/adminapicall";
-const AddCategory = () => {
+import { delay } from "../core/utility";
+const AddCategory = ({ history }) => {
   const [name, setName] = useState("");
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [redirect, setRedirect] = useState("");
   const { user, token } = isAuthenticated();
   const handleChange = (event) => {
     setError(false);
@@ -20,6 +22,7 @@ const AddCategory = () => {
     createCategory(user._id, token, { name }).then((data) => {
       if (!data || data.error) {
         setError(true);
+        data.redirect ? setRedirect(data.redirect) : setRedirect("");
       } else {
         setError(false);
         setSuccess(true);
@@ -27,6 +30,15 @@ const AddCategory = () => {
       }
     });
   };
+  const redirectToSignin = () => {
+    if (redirect !== "") {
+      signOut(() => {});
+      setTimeout(() => {
+        history.push("/signin");
+      }, 2000);
+    }
+  };
+
   const successMessage = () =>
     success && (
       <h4 className="text-success">{`Category created successfully`}</h4>
@@ -69,6 +81,7 @@ const AddCategory = () => {
       description="Add new categories for Saree"
       className="container bg-info p-4"
     >
+      {redirectToSignin()}
       <div className="row">{goBack()}</div>
       <div className="row bg-white rounded">
         <div className="col-md-8 offset-md-2 py-4">
