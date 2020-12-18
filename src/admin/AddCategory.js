@@ -3,7 +3,7 @@ import { isAuthenticated, signOut } from "../auth/helper";
 import { Link, Redirect } from "react-router-dom";
 import Base from "../core/Base";
 import { createCategory } from "./helper/adminapicall";
-import { delay } from "../core/utility";
+import { redirectTo } from "../core/utility";
 const AddCategory = ({ history }) => {
   const [name, setName] = useState("");
   const [error, setError] = useState(false);
@@ -29,14 +29,6 @@ const AddCategory = ({ history }) => {
         setName("");
       }
     });
-  };
-  const redirectToSignin = () => {
-    if (redirect !== "") {
-      signOut(() => {});
-      setTimeout(() => {
-        history.push("/signin");
-      }, 2000);
-    }
   };
 
   const successMessage = () =>
@@ -81,7 +73,7 @@ const AddCategory = ({ history }) => {
       description="Add new categories for Saree"
       className="container bg-info p-4"
     >
-      {redirectToSignin()}
+      {redirectTo(history, redirect)}
       <div className="row">{goBack()}</div>
       <div className="row bg-white rounded">
         <div className="col-md-8 offset-md-2 py-4">

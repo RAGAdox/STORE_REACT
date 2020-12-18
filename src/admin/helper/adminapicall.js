@@ -18,7 +18,7 @@ export const createCategory = (userId, token, category) => {
       return response.json();
     })
     .catch((err) => {
-      console.log(err);
+      //console.log(err);
     });
 };
 //get all catagories

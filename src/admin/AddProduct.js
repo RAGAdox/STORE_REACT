@@ -2,15 +2,16 @@ import React, { Fragment, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { isAuthenticated } from "../auth/helper";
 import Base from "../core/Base";
-import { goAdminHome, loadingBanner } from "../core/utility";
+import { goAdminHome, loadingBanner, redirectTo } from "../core/utility";
 import {
   createCategory,
   getCategories,
   createProduct,
 } from "./helper/adminapicall";
-const AddProduct = () => {
+const AddProduct = ({ history }) => {
   const { user, token } = isAuthenticated();
   const [success, setSuccess] = useState(false);
+  const [redirect, setRedirect] = useState("");
   const [values, setValues] = useState({
     name: "",
     description: "",
@@ -100,6 +101,7 @@ const AddProduct = () => {
       if (data) {
         if (data.error) {
           setValues({ ...values, error: data.error });
+          data.redirect ? setRedirect(data.redirect) : setRedirect("");
         } else {
           formData.delete("photo");
           setValues({
@@ -203,6 +205,7 @@ const AddProduct = () => {
   );
   return (
     <Fragment>
+      {redirectTo(history, redirect)}
       {loading && loadingBanner()}
       <Base
         title="Create a new product"

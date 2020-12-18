@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
+import { signOut } from "../auth/helper";
 export const scrollToTop = () => {
   window.scrollTo(0, 0);
 };
@@ -17,6 +18,14 @@ export const goAdminHome = () => (
     </Link>
   </div>
 );
+export const redirectTo = (history, route) => {
+  if (route !== "") {
+    signOut(() => {});
+    setTimeout(() => {
+      history.push(`/${route}`);
+    }, 2000);
+  }
+};
 export const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
 export const shrinkText = (text, className) => {};
