@@ -3,7 +3,7 @@ import { isAuthenticated, signOut } from "../auth/helper";
 import { Link, Redirect } from "react-router-dom";
 import Base from "../core/Base";
 import { createCategory } from "./helper/adminapicall";
-import { redirectTo } from "../core/utility";
+import { redirectTo, modal } from "../core/utility";
 const AddCategory = ({ history }) => {
   const [name, setName] = useState("");
   const [error, setError] = useState(false);
@@ -73,6 +73,7 @@ const AddCategory = ({ history }) => {
       description="Add new categories for Saree"
       className="container bg-info p-4"
     >
+      {/* {redirect && modal(true)} */}
       {redirectTo(history, redirect)}
       <div className="row">{goBack()}</div>
       <div className="row bg-white rounded">

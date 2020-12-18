@@ -87,6 +87,7 @@ div.loading {
   top: 2px;
   right: 2px;
 }
+
 @-webkit-keyframes uil-ring-anim {
   0% {
     -ms-transform: rotate(0deg);
