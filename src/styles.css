@@ -87,6 +87,11 @@ div.loading {
   top: 2px;
   right: 2px;
 }
+.products-box {
+  overflow-y: scroll !important;
+  overscroll-behavior-y: scroll !important;
+  height: 500px !important;
+}
 
 @-webkit-keyframes uil-ring-anim {
   0% {

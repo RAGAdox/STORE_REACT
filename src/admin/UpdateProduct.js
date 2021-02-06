@@ -140,9 +140,10 @@ const UpdateProduct = ({ match }) => {
       .then((data) => {
         if (!data || data.error) {
           setValues({ ...values, error: data.error || "No Data Received" });
+        } else {
+          setValues({ ...values, photo: data.photo, loading: false });
+          setSuccess(true);
         }
-        setValues({ ...values, photo: data.photo, loading: false });
-        setSuccess(true);
       })
       .catch((err) => {
         return console.log(err);

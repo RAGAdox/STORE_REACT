@@ -82,7 +82,8 @@ const AddProduct = ({ history }) => {
       setValues({ ...values, [name]: value });
     } else {
       console.log("File added");
-
+      console.log("Error-> in photo" + error);
+      formData.delete(name);
       for (let i = 0; i < event.target.files.length; i++) {
         const value = event.target.files[i];
         //formData.set(name, value);
@@ -103,6 +104,7 @@ const AddProduct = ({ history }) => {
           setValues({ ...values, error: data.error });
           data.redirect ? setRedirect(data.redirect) : setRedirect("");
         } else {
+          console.log("Photo Field after success", formData.get("photo").name);
           formData.delete("photo");
           setValues({
             ...values,
@@ -114,6 +116,7 @@ const AddProduct = ({ history }) => {
             stock: "",
             loading: false,
             createdProduct: data.name,
+            error: false,
           });
         }
       } else {
@@ -139,12 +142,20 @@ const AddProduct = ({ history }) => {
         <label className="btn btn-block btn-success">
           <input
             onChange={handleChange("photo")}
+            style={{ display: "none" }}
             type="file"
             name="photo"
             accept="image"
+            // value={formData.get("photo") ? "" : ""}
             placeholder="choose a file"
             multiple
           />
+          {console.log(
+            formData.get("photo")
+              ? formData.get("photo").name
+              : "No File Selected"
+          )}
+          <p>{formData.get("photo") ? formData.get("photo").name : ""}</p>
         </label>
       </div>
       <div className="form-group">

@@ -1,35 +1,44 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState, useRef } from "react";
 import { API } from "../backend";
 import Base from "../core/Base";
 import { isAuthenticated } from "../auth/helper";
 import { goAdminHome, loadingBanner } from "../core/utility";
-import { deleteProduct, getProducts } from "./helper/adminapicall";
+import {
+  deleteProduct,
+  getProductCount,
+  getProducts,
+} from "./helper/adminapicall";
 import { Link } from "react-router-dom";
 const ManageProduct = () => {
-  const [productArray, setProductArray] = useState([]);
+  let [count, setCount] = useState(0);
+  let [productArray, setProductArray] = useState([]);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const { user, token } = isAuthenticated();
-  const loadProducts = () => {
+  const loadProducts = (limit, skip) => {
     setLoading(true);
-    getProducts().then((data) => {
+    getProducts(limit, skip).then((data) => {
       if (data) {
         if (!data.error) {
-          setProductArray(data);
+          setProductArray((productArray) => productArray.concat(data));
           setLoading(false);
         } else setError(data.error);
       }
     });
   };
   useEffect(() => {
-    loadProducts();
+    getProductCount().then((data) => {
+      setCount(data.count);
+    });
+    loadProducts(2, undefined);
   }, []);
   const deleteCurrentProduct = (productId) => {
     deleteProduct(productId, user._id, token).then((data) => {
       if (!data || data.error) {
         setError(true);
       } else {
-        loadProducts();
+        setProductArray([]);
+        loadProducts(productArray.length, undefined);
       }
     });
   };
@@ -96,12 +105,26 @@ const ManageProduct = () => {
       >
         <div className="row">{goAdminHome()}</div>
         <div className="row bg-white rounded p-1">
-          <div className="col-md-10 offset-md-1 py-4">
+          <div id="products" className="col-md-10 offset-md-1 py-4">
             {productArray &&
               productArray.length !== 0 &&
               productArray.map((product) => {
                 return showProduct(product);
               })}
+            {productArray.length < count ? (
+              <div className="row d-flex justify-content-center p-1">
+                <button
+                  className="btn btn-primary rounded"
+                  onClick={() => {
+                    loadProducts(4, productArray.length);
+                  }}
+                >
+                  Load More Products...
+                </button>
+              </div>
+            ) : (
+              <Fragment />
+            )}
           </div>
         </div>
       </Base>

@@ -54,16 +54,25 @@ export const createProduct = (userId, token, product) => {
     });
 };
 //get all products
-export const getProducts = () => {
-  return fetch(`${API}/product`, {
+export const getProducts = (limit, skip) => {
+  //console.log(limit, skip);
+  return fetch(`${API}/product?limit=${limit}&skip=${skip}`, {
     method: "GET",
   })
     .then((response) => {
       return response.json();
     })
     .catch((err) => {
-      console.log(err);
+      //console.log(err);
     });
+};
+//get count of products
+export const getProductCount = () => {
+  return fetch(`${API}/product/count`, { method: "GET" })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => {});
 };
 //delete products
 export const deleteProduct = (productId, userId, token) => {
