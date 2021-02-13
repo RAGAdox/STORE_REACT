@@ -16,6 +16,7 @@ import AddProduct from "./admin/AddProduct";
 import ManageCategory from "./admin/ManageCategory";
 import ManageProduct from "./admin/ManageProducts";
 import UpdateProduct from "./admin/UpdateProduct";
+import UpdateCategory from "./admin/UpdateCategory";
 export default function Routes() {
   return (
     <Router>
@@ -37,6 +38,11 @@ export default function Routes() {
           path="/admin/product/update/:productId"
           exact
           component={UpdateProduct}
+        />
+        <AdminRoute
+          path="/admin/category/update/:categoryId"
+          exact
+          component={UpdateCategory}
         />
       </Switch>
     </Router>

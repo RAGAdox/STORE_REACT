@@ -39,6 +39,9 @@ const ManageProduct = () => {
       } else {
         setProductArray([]);
         loadProducts(productArray.length, undefined);
+        getProductCount().then((data) => {
+          setCount(data.count);
+        });
       }
     });
   };
