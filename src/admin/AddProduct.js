@@ -81,8 +81,6 @@ const AddProduct = ({ history }) => {
       formData.set(name, value);
       setValues({ ...values, [name]: value });
     } else {
-      console.log("File added");
-      console.log("Error-> in photo" + error);
       formData.delete(name);
       for (let i = 0; i < event.target.files.length; i++) {
         const value = event.target.files[i];
