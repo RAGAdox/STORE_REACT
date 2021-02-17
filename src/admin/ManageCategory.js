@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Base from "../core/Base";
 import { isAuthenticated } from "../auth/helper";
-import { getCategories, getProductByCategory } from "./helper/adminapicall";
+import { getCategories, getProductByCategory } from "../helper/adminapicall";
 import { goAdminHome, loadingBanner } from "../core/utility";
 
 const ManageCategory = () => {
@@ -23,9 +23,7 @@ const ManageCategory = () => {
   useEffect(() => {
     loadCategories();
   }, []);
-  const deleteCategory = (categoryId) => {
-    
-  };
+  const deleteCategory = (categoryId) => {};
   const showCategory = (category) => {
     return (
       <div className="row m-1" key={category._id}>

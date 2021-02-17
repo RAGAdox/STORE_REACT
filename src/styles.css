@@ -3,18 +3,36 @@
 .nav :hover {
   border-radius: 0px;
 }
+.navigation {
+  background: rgba(209, 208, 208, 0.459) !important;
+}
+.product-card {
+  min-width: 30vh;
+}
+.product-card-image {
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  /* transition: background 1s linear; */
+}
+.product-card-name {
+  overflow-x: auto !important;
+}
 .border {
   border-width: 0.2em !important;
 }
 .main-body-scroll {
   padding-bottom: 5rem !important;
+  margin-top: 10vh;
 }
 body {
-  background: #343a40;
   min-height: auto;
   padding-top: 50px;
 
   /*padding-top: 4.5rem;*/
+}
+.jumbotron {
+  background-color: transparent !important;
 }
 .main-body {
   padding-bottom: 0rem !important;
@@ -22,6 +40,8 @@ body {
 .card:hover {
   transform: scale(1.01);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.06);
+}
+#card-img-container {
 }
 /* .overlay {
   position: fixed;
@@ -33,7 +53,7 @@ body {
 } */
 /*STICKY FOOTER*/
 .footer {
-  bottom: 0;
+  /* bottom: 0; */
   /*width: 100%;*/
 }
 /*LESS TEXT */

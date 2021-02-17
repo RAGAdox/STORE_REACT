@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, Redirect } from "react-router-dom";
-import { API } from "../../backend";
+import { API } from "../backend";
 //Category Calls
 //Create Catagories
 export const createCategory = (userId, token, category) => {

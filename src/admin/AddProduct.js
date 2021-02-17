@@ -7,7 +7,7 @@ import {
   createCategory,
   getCategories,
   createProduct,
-} from "./helper/adminapicall";
+} from "../helper/adminapicall";
 const AddProduct = ({ history }) => {
   const { user, token } = isAuthenticated();
   const [success, setSuccess] = useState(false);

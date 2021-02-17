@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { isAuthenticated } from "../auth/helper";
 import Base from "../core/Base";
 import { goAdminHome, loadingBanner } from "../core/utility";
-import { getCategoryById, updateCategory } from "./helper/adminapicall";
+import { getCategoryById, updateCategory } from "../helper/adminapicall";
 const UpdateCategory = ({ match }) => {
   const { user, token } = isAuthenticated();
   const [category, setCategory] = useState({

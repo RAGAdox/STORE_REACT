@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { isAuthenticated, signOut } from "../auth/helper";
 import { Link, Redirect } from "react-router-dom";
 import Base from "../core/Base";
-import { createCategory } from "./helper/adminapicall";
+import { createCategory } from "../helper/adminapicall";
 import { redirectTo, modal } from "../core/utility";
 const AddCategory = ({ history }) => {
   const [name, setName] = useState("");

@@ -11,7 +11,7 @@ import {
   getCategories,
   getProduct,
   updateProduct,
-} from "./helper/adminapicall";
+} from "../helper/adminapicall";
 const UpdateProduct = ({ match }) => {
   const { user, token } = isAuthenticated();
   const [success, setSuccess] = useState(false);

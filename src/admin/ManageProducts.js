@@ -7,7 +7,7 @@ import {
   deleteProduct,
   getProductCount,
   getProducts,
-} from "./helper/adminapicall";
+} from "../helper/adminapicall";
 import { Link } from "react-router-dom";
 const ManageProduct = () => {
   let [count, setCount] = useState(0);
@@ -51,7 +51,7 @@ const ManageProduct = () => {
         className="row d-flex justify-content-between mb-2"
         key={product._id}
       >
-        <div className="card w-100 bg-success text-white">
+        <div className="card w-100 bg-success ">
           <h5 className="card-header">{product.name}</h5>
           <div className="card-body">
             <div className="row d-flex align-items-center justify-content-center">

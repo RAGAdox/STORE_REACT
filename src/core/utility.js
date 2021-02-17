@@ -1,6 +1,16 @@
 import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 import { signOut } from "../auth/helper";
+export const getExtention = (string) => {
+  return string.substring(string.lastIndexOf("."));
+};
+export const supportedPhotoExtensions = [
+  ".jpg",
+  ".png",
+  ".jpeg",
+  ".gif",
+  ".bmp",
+];
 export const scrollToTop = () => {
   window.scrollTo(0, 0);
 };

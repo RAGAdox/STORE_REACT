@@ -5,14 +5,14 @@ import { signOut, isAuthenticated } from "../auth/helper";
 const currentTab = (history, path) => {
   if (history.location.pathname === path) {
     return { color: "#2ecc72" };
-  } else return { color: "#ffffff" };
+  }
 };
 
 const Menu = ({ history }) => {
   return (
-    <div>
-      <ul className="nav nav-tabs bg-dark fixed-top">
-        <li className="nav-item">
+    <div className="d-flex align-items-center">
+      <ul className="bg-light nav rounded fixed-top d-flex justify-content-center">
+        <li className="nav-item ">
           <Link style={currentTab(history, "/")} className="nav-link" to="/">
             Home
           </Link>
