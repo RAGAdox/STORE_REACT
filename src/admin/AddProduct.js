@@ -1,5 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import imageCompression from "browser-image-compression";
 import { isAuthenticated } from "../auth/helper";
 import Base from "../core/Base";
 import { goAdminHome, loadingBanner, redirectTo } from "../core/utility";
@@ -26,6 +27,8 @@ const AddProduct = ({ history }) => {
     getRedirect: false,
     formData: new FormData(),
   });
+  const [fileList, setFileList] = useState([]);
+  const [fileValidationError, setFileValidationError] = useState(false);
   const {
     name,
     description,
@@ -41,7 +44,6 @@ const AddProduct = ({ history }) => {
   } = values;
 
   const preload = () => {
-    //setValues({ ...values, formData: new FormData() });
     getCategories().then((data) => {
       if (data) {
         if (data.error) {
@@ -72,8 +74,6 @@ const AddProduct = ({ history }) => {
     });
 
   const handleChange = (name) => (event) => {
-    console.log("Change captured");
-    //setValues({ ...values, error: false, [name]: event.target.value });
     setValues({ ...values, error: false });
     setSuccess(false);
     if (name !== "photo") {
@@ -82,16 +82,32 @@ const AddProduct = ({ history }) => {
       setValues({ ...values, [name]: value });
     } else {
       formData.delete(name);
+      const options = {
+        maxSizeMB: 0.1,
+        maxWidthOrHeight: 1920,
+        useWebWorker: true,
+      };
       for (let i = 0; i < event.target.files.length; i++) {
-        const value = event.target.files[i];
-        //formData.set(name, value);
-        formData.append(name, value);
-
-        //console.log("FILE;-", value);
-        //console.log("FORM DATA", formData);
-        setValues({ ...values, [name]: value });
+        const imageFile = event.target.files[i];
+        if (imageFile.type === "image/jpeg") {
+          imageCompression(imageFile, options).then((compressedFile) => {
+            console.log(
+              "File Name",
+              compressedFile.name,
+              compressedFile.size / (1024 * 1024)
+            );
+            formData.append(name, compressedFile);
+            setValues({ ...values, [name]: compressedFile });
+          });
+        } else {
+          setFileValidationError({
+            error: "Only Images are supported as of now ",
+          });
+        }
+        setFileList((fileList) => [...fileList, imageFile.name]);
       }
     }
+    console.log(error);
   };
   const onSubmit = (event) => {
     event.preventDefault();
@@ -104,6 +120,7 @@ const AddProduct = ({ history }) => {
         } else {
           console.log("Photo Field after success", formData.get("photo").name);
           formData.delete("photo");
+          setFileList([]);
           setValues({
             ...values,
             name: "",
@@ -132,14 +149,22 @@ const AddProduct = ({ history }) => {
     error && (
       <h4 className="text-warning">Unable to create product {`\n ${error}`}</h4>
     );
+  const fileValidationWarnings = () =>
+    fileValidationError && (
+      <h4 className="text-warning">{fileValidationError.error}</h4>
+    );
 
   const addProductForm = () => (
     <form>
       <span>Post photo</span>
       <div className="form-group">
-        <label className="btn btn-block btn-success">
+        <label className="btn btn-block btn-success rounded">
           <input
             onChange={handleChange("photo")}
+            onClick={() => {
+              setFileValidationError(false);
+              setFileList([]);
+            }}
             style={{ display: "none" }}
             type="file"
             name="photo"
@@ -148,12 +173,18 @@ const AddProduct = ({ history }) => {
             placeholder="choose a file"
             multiple
           />
-          {console.log(
-            formData.get("photo")
-              ? formData.get("photo").name
-              : "No File Selected"
+          {fileList.length == 0 && (
+            <p className="py-1 my-1 lead">Upload Image</p>
           )}
-          <p>{formData.get("photo") ? formData.get("photo").name : ""}</p>
+          <div className="">
+            {fileList.map((file, key) => {
+              return (
+                <p className="p-1 m-1 border rounded row" key={key}>
+                  {file}
+                </p>
+              );
+            })}
+          </div>
         </label>
       </div>
       <div className="form-group">
@@ -225,6 +256,7 @@ const AddProduct = ({ history }) => {
         <div className="row bg-white rounded">
           <div className="col-md-8 offset-md-2 py-4">
             {successMessage()}
+            {fileValidationWarnings()}
             {warningMessage()}
             {addProductForm()}
           </div>

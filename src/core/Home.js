@@ -35,10 +35,10 @@ export default function Home() {
           productArray.map((product) => {
             let imageSrcArray = [];
             product.photo.forEach((path) => {
-              if (supportedPhotoExtensions.includes(getExtention(path)))
-                imageSrcArray.push(
-                  `${API}/product/photo/${product._id}?path=${path}`
-                );
+              //if (supportedPhotoExtensions.includes(getExtention(path)))
+              imageSrcArray.push(
+                `${API}/product/photo/${product._id}?path=${path}`
+              );
             });
             return (
               <Card

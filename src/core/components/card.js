@@ -25,7 +25,7 @@ const Card = ({
           style={{
             backgroundImage: `url(${imageUrls[index]})`,
           }}
-          className="bg-dark mb-1 embed-responsive embed-responsive-1by1 product-card-image"
+          className="mb-1 embed-responsive embed-responsive-1by1 product-card-image"
         ></div>
         <div className="px-3">
           <h5 className="row font-weight-bold">{name}</h5>
