@@ -16,7 +16,7 @@ export default function Base({
     <Fragment>
       <Menu />
 
-      <div className="container-fluid main-body-scroll shadow rounded col-md-8 ">
+      <div className="container-fluid main-body-scroll  p-3 col-md-8 ">
         {displayTitleDescription && (
           <div className="jumbotron text-center main-body">
             <h2 className="display-4">{title}</h2>

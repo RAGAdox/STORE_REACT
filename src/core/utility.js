@@ -20,6 +20,11 @@ export const manageMargins = () => {
   homeSectionMain.style.marginTop = navHeight + "px";
   homeSectionMain.style.paddingTop = navHeight + "px";
 };
+export const scrollSectionById = () => {
+  console.log("IN Scroll Function");
+  let section1 = document.getElementById("home-section-1");
+  window.scrollTo(0, section1.offsetHeight);
+};
 export const loadingBanner = () => (
   <div className="loading">
     <div className="uil-ring-css">

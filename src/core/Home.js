@@ -4,6 +4,7 @@ import {
   getExtention,
   supportedPhotoExtensions,
   manageMargins,
+  scrollSectionById,
 } from "../core/utility";
 import "../styles.css";
 import Base from "./Base";
@@ -44,7 +45,7 @@ export default function Home() {
           <h3 className="text-white ">{description_l2}</h3>
         </div>
 
-        <div className="row  d-flex m-1 align-items-end">
+        <div className="row  d-flex m-1 align-items-end ">
           <Banner
             header="Big Festival Sale"
             body="Flat 20% discount on purchases more than Rs.10,000"
@@ -56,16 +57,16 @@ export default function Home() {
           title={title}
           description={description}
           displayFooter={false}
+          className="bg-light rounded-lg p-2 shadow-lg"
           displayTitleDescription={false}
         >
-          <h3 className="mx-1">Latest Arrivals </h3>
+          <h3 className="mx-1 mb-3">Latest Arrivals </h3>
           <div style={{ display: "flex", overflowX: "scroll" }}>
             {productArray &&
               productArray.length !== 0 &&
               productArray.map((product) => {
                 let imageSrcArray = [];
                 product.photo.forEach((path) => {
-                  //if (supportedPhotoExtensions.includes(getExtention(path)))
                   imageSrcArray.push(
                     `${API}/product/photo/${product._id}?path=${path}`
                   );

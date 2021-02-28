@@ -1,3 +1,7 @@
+html {
+  scroll-behavior: smooth;
+}
+
 .paralax-background {
   background-attachment: fixed;
   background-size: 85vh !important;
@@ -5,16 +9,14 @@
   background-position: right center !important;
 }
 .home-container {
-  /* margin-top: 10vh !important; */
   min-height: 100vh !important;
-
   margin: 0px !important;
-  /* letter-spacing: 0.1em; */
 }
 .bng-shadow {
   text-shadow: 0 -1px 0 #fff, 0 1px 0 #2e2e2e, 0 2px 0 #2c2c2c, 0 3px 0 #2a2a2a;
 }
 .home-cards {
+  /* bottom: 0; */
 }
 
 .jumbotron,
@@ -41,6 +43,7 @@
 }
 .main-body-scroll {
   padding-bottom: 5rem !important;
+
   margin-top: 10vh;
 }
 body {
