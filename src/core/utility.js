@@ -14,6 +14,12 @@ export const supportedPhotoExtensions = [
 export const scrollToTop = () => {
   window.scrollTo(0, 0);
 };
+export const manageMargins = () => {
+  let navHeight = document.getElementById("nav").offsetHeight;
+  let homeSectionMain = document.getElementById("home-section-1");
+  homeSectionMain.style.marginTop = navHeight + "px";
+  homeSectionMain.style.paddingTop = navHeight + "px";
+};
 export const loadingBanner = () => (
   <div className="loading">
     <div className="uil-ring-css">
