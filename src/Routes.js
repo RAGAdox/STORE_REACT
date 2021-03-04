@@ -2,6 +2,7 @@ import React from "react";
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 
 import Home from "./core/Home";
+import Cart from "./core/cart";
 import Signin from "./user/Signin";
 import Signup from "./user/Signup";
 
@@ -22,6 +23,7 @@ export default function Routes() {
     <Router>
       <Switch>
         <Route path="/" exact component={Home} />
+        <Route path="/cart" exact component={Cart} />
         <Route path="/signup" exact component={Signup} />
         <Route path="/signin" exact component={Signin} />
         <PrivateRoute path="/user/dashboard" exact component={UserDashboard} />

@@ -5,6 +5,7 @@ export default function Base({
   title = "My Title",
   description = "My description",
   className = "p-4",
+  mainClassName = "shadow-lg rounded-lg",
   displayTitleDescription = true,
   displayFooter = true,
   children,
@@ -16,7 +17,9 @@ export default function Base({
     <Fragment>
       <Menu />
 
-      <div className="container-fluid main-body-scroll  p-3 col-md-8 ">
+      <div
+        className={`container-fluid main-body-scroll p-3 col-md-8 ${mainClassName}`}
+      >
         {displayTitleDescription && (
           <div className="jumbotron text-center main-body">
             <h2 className="display-4">{title}</h2>

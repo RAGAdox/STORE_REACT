@@ -57,28 +57,21 @@ export default function Home() {
           title={title}
           description={description}
           displayFooter={false}
-          className="bg-light rounded-lg p-2 shadow-lg"
+          className="bg-light rounded-lg p-3 shadow-lg"
+          mainClassName=""
           displayTitleDescription={false}
         >
-          <h3 className="mx-1 mb-3">Latest Arrivals </h3>
+          <h3 className="m-3">Latest Arrivals </h3>
           <div style={{ display: "flex", overflowX: "scroll" }}>
             {productArray &&
               productArray.length !== 0 &&
               productArray.map((product) => {
-                let imageSrcArray = [];
-                product.photo.forEach((path) => {
-                  imageSrcArray.push(
-                    `${API}/product/photo/${product._id}?path=${path}`
-                  );
-                });
                 return (
                   <Card
                     key={product._id}
-                    name={product.name}
-                    description={product.description}
-                    imageUrls={imageSrcArray}
-                    price={product.price}
-                    addedToCart={false}
+                    product={product}
+                    addToCart={true}
+                    removeFromCart={false}
                   ></Card>
                 );
               })}
