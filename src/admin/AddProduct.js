@@ -89,7 +89,8 @@ const AddProduct = ({ history }) => {
       };
       for (let i = 0; i < event.target.files.length; i++) {
         const imageFile = event.target.files[i];
-        if (imageFile.type === "image/jpeg") {
+        console.log("File Type", imageFile.type);
+        if (imageFile.type === "image/jpeg" || imageFile.type === "image/png") {
           imageCompression(imageFile, options).then((compressedFile) => {
             console.log(
               "File Name",
@@ -168,7 +169,7 @@ const AddProduct = ({ history }) => {
             style={{ display: "none" }}
             type="file"
             name="photo"
-            accept="image"
+            accept="image/*"
             // value={formData.get("photo") ? "" : ""}
             placeholder="choose a file"
             multiple

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, Fragment } from "react";
 import { Redirect } from "react-router-dom";
+import { prominent, average } from "color.js";
 import { API } from "../../backend";
 import {
   addItemToCard,
@@ -9,7 +10,8 @@ import {
   decreaseProductCount,
 } from "../helper/cartHelper";
 
-const Card = ({
+const NewCard = ({
+  stackOrientation = "row",
   product,
   addToCart = true,
   removeFromCart = false,
@@ -18,12 +20,18 @@ const Card = ({
 }) => {
   const [index, setIndex] = useState(0);
   const [redirect, setRedirect] = useState(false);
+  const [bgColor, setBgColor] = useState("");
   const { name, description, photo, price } = product;
   let imageUrls = [];
   photo.forEach((path) => {
     imageUrls.push(`${API}/product/photo/${product._id}?path=${path}`);
   });
   useEffect(() => {
+    average(imageUrls[index]).then((color) => {
+      if (color && color.length == 3) {
+        setBgColor("rgb(" + color.join(",") + ")");
+      }
+    });
     let interval = setInterval(() => {
       if (index < imageUrls.length - 1) setIndex(index + 1);
       else setIndex(0);
@@ -38,10 +46,20 @@ const Card = ({
   const getRedirect = (redirect) => {
     if (redirect) return <Redirect to="/cart" />;
   };
+  const addItemToCart = () =>
+    addToCart && (
+      <button
+        className="btn btn-success rounded shadow col my-1"
+        onClick={addProductToCart}
+      >
+        Add to Cart
+      </button>
+    );
+
   const modifyItemInCart = () => {
     return (
       removeFromCart && (
-        <div className="justify-content-between row mx-1">
+        <div className="justify-content-between row m-1">
           <i
             class="far fa-trash-alt btn  btn-danger  shadow "
             onClick={() => {
@@ -76,37 +94,26 @@ const Card = ({
     );
   };
   return (
-    <div className="card bg-light rounded-lg shadow p-1 m-1 my-1  product-card ">
-      {getRedirect(redirect)}
-      <div className="card-body">
+    <div
+      className={`card rounded-lg m-1 p-1 text-center text-white ${
+        stackOrientation == "row" ? " col-2 product-card " : "col-8 "
+      }`}
+      style={{ background: bgColor }}
+    >
+      <div className="product-card-body">
         <div
           style={{
             backgroundImage: `url(${imageUrls[index]})`,
           }}
           className="mb-1  embed-responsive  embed-responsive-1by1 product-card-image"
         ></div>
-        <div className="px-3">
-          <h5 className="row font-weight-bold">{name}</h5>
-          <p className=" row font-weight-normal text-truncate product-card-description">
-            {description}
-          </p>
-        </div>
+        <p className="h5 text-truncate">{product.name}</p>
+        <p className="h6 text-truncate">{product.description}</p>
+        <p className="h5">Rs. {product.price}</p>
       </div>
-      <div className="card-footer bg-light">
-        <div className="col-12 btn-info btn shadow my-2">
-          Price - Rs.{price}
-        </div>
-        {addToCart && (
-          <button
-            className="btn btn-success rounded shadow col my-1"
-            onClick={addProductToCart}
-          >
-            Add to Cart
-          </button>
-        )}
-        {modifyItemInCart()}
-      </div>
+      {addItemToCart()}
+      {modifyItemInCart()}
     </div>
   );
 };
-export default Card;
+export default NewCard;

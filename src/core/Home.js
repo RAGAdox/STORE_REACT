@@ -1,4 +1,5 @@
 import React, { useState, useEffect, Fragment } from "react";
+import Menu from "./Menu";
 import { API } from "../backend";
 import {
   getExtention,
@@ -9,6 +10,8 @@ import {
 import "../styles.css";
 import Base from "./Base";
 import Card from "./components/card";
+import NewCard from "./components/newCard";
+import ShowProducts from "./components/showProducts";
 import Banner from "./components/banner";
 import { title, description, description_l2, description_l1 } from "../bangla";
 import { getProducts } from "../helper/apicall";
@@ -18,7 +21,7 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const loadProducts = () => {
     setLoading(true);
-    getProducts({ limit: 10, sortBy: "createdAt", sortOrder: "desc" }).then(
+    getProducts({ limit: 10, sortBy: "sold", sortOrder: "asc" }).then(
       (data) => {
         if (data) {
           if (!data.error) {
@@ -30,14 +33,15 @@ export default function Home() {
     );
   };
   useEffect(() => {
-    manageMargins();
+    //manageMargins();
     loadProducts();
   }, []);
   return (
     <div
       style={{ backgroundImage: "url(/undraw.svg)" }}
-      className="paralax-background"
+      className="paralax-background d-flex flex-column"
     >
+      <Menu></Menu>
       <section className="home-container row d-flex " id="home-section-1">
         <div className="col-md-10 d-flex flex-column  mx-5 align-self-center">
           <h1 className="text-white  bng-shadow display-4">{title}</h1>
@@ -52,32 +56,20 @@ export default function Home() {
           ></Banner>
         </div>
       </section>
-      <section className="home-container row w-100 ">
-        <Base
-          title={title}
-          description={description}
-          displayFooter={false}
-          className="bg-light rounded-lg p-3 shadow-lg"
-          mainClassName=""
-          displayTitleDescription={false}
-        >
-          <h3 className="m-3">Latest Arrivals </h3>
-          <div style={{ display: "flex", overflowX: "scroll" }}>
-            {productArray &&
-              productArray.length !== 0 &&
-              productArray.map((product) => {
-                return (
-                  <Card
-                    key={product._id}
-                    product={product}
-                    addToCart={true}
-                    removeFromCart={false}
-                  ></Card>
-                );
-              })}
-          </div>
-        </Base>
-      </section>
+
+      <ShowProducts
+        headerText="Latest Products"
+        limit={8}
+        sortBy="createdAt"
+        sortOrder="desc"
+      />
+
+      <ShowProducts
+        headerText="Most Sold Items"
+        limit={8}
+        sortBy="sold"
+        sortOrder="desc"
+      />
     </div>
   );
 }
