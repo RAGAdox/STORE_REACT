@@ -13,7 +13,7 @@ const Banner = ({
       className="home-cards my-1  card shadow-lg  card-quality notification"
       style={{
         display: `${display}`,
-        webkitAnimation: `notify-fadeIn 1s ease-in-out ${
+        WebkitAnimation: `notify-fadeIn 1s ease-in-out ${
           2 + index / 10
         }s 1 forwards,
     notify-fadeOut 2s ease-out ${8 + index / 2}s 1 forwards`,

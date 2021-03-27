@@ -43,7 +43,7 @@ const NewCard = ({
       setIndex((index) => {
         return index < imageUrls.length - 1 ? index + 1 : 0;
       });
-    }, 1000);
+    }, 10000);
     return () => {
       clearInterval(interval);
     };
