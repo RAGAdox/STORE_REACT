@@ -33,7 +33,7 @@ export default function Home() {
     );
   };
   useEffect(() => {
-    //manageMargins();
+    manageMargins();
     loadProducts();
   }, []);
   return (
@@ -42,17 +42,28 @@ export default function Home() {
       className="paralax-background d-flex flex-column"
     >
       <Menu></Menu>
-      <section className="home-container row d-flex " id="home-section-1">
-        <div className="col-md-10 d-flex flex-column  mx-5 align-self-center">
+      <section className="home-container row " id="home-section-1">
+        <div className="  flex-column  mx-5 align-self-center">
           <h1 className="text-white  bng-shadow display-4">{title}</h1>
           <h3 className="text-white  ">{description_l1}</h3>
           <h3 className="text-white ">{description_l2}</h3>
         </div>
 
-        <div className="row  d-flex m-1 align-items-end ">
+        <div className="col-md-6   mt-auto flex-column ml-auto">
           <Banner
             header="Big Festival Sale"
             body="Flat 20% discount on purchases more than Rs.10,000"
+            index={0}
+          ></Banner>
+          <Banner
+            header="Big Festival Sale"
+            body="Flat 20% discount on purchases more than Rs.10,000"
+            index={1}
+          ></Banner>
+          <Banner
+            header="Big Festival Sale"
+            body="Flat 20% discount on purchases more than Rs.10,000"
+            index={2}
           ></Banner>
         </div>
       </section>
@@ -62,6 +73,7 @@ export default function Home() {
         limit={8}
         sortBy="createdAt"
         sortOrder="desc"
+        id="Latest-Products"
       />
 
       <ShowProducts
@@ -69,6 +81,7 @@ export default function Home() {
         limit={8}
         sortBy="sold"
         sortOrder="desc"
+        id="Most-Sold-Items"
       />
     </div>
   );

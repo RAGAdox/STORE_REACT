@@ -80,11 +80,13 @@ const Card = ({
       {getRedirect(redirect)}
       <div className="card-body">
         <div
-          style={{
-            backgroundImage: `url(${imageUrls[index]})`,
-          }}
+          // style={{
+          //   backgroundImage: `url(${imageUrls[index]})`,
+          // }}
           className="mb-1  embed-responsive  embed-responsive-1by1 product-card-image"
-        ></div>
+        >
+          <img src={`url(${imageUrls[index]})`}></img>
+        </div>
         <div className="px-3">
           <h5 className="row font-weight-bold">{name}</h5>
           <p className=" row font-weight-normal text-truncate product-card-description">

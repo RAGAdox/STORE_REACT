@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useState, useEffect, Fragment, useRef, createRef } from "react";
 import { getProducts } from "../../helper/apicall";
 import NewCard from "./newCard";
 const ShowProducts = ({
@@ -11,6 +11,7 @@ const ShowProducts = ({
   minPrice = undefined,
   maxPrice = undefined,
 }) => {
+  const container = createRef();
   const [productArray, setProductArray] = useState([]);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -33,12 +34,15 @@ const ShowProducts = ({
   if (productArray && productArray.length !== 0)
     return (
       <section className="home-container">
-        <Fragment>
+        <div
+          className="card m-md-5 m-3 shadow-lg pb-5 card-quality "
+          // style={{ width: `${30 * productArray.length}` }}
+        >
           <h3 className="ml-5 px-1 mt-3 ">{headerText}</h3>
           <div className="mx-5  product-card-container product-card-container-row">
             {productArray &&
               productArray.length !== 0 &&
-              productArray.map((product) => {
+              productArray.map((product, i) => {
                 return (
                   <NewCard
                     stackOrientation="row"
@@ -50,7 +54,7 @@ const ShowProducts = ({
                 );
               })}
           </div>
-        </Fragment>
+        </div>
       </section>
     );
   else return <Fragment></Fragment>;

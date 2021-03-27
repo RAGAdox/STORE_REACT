@@ -26,6 +26,10 @@ html {
 .navigation {
   background: rgba(209, 208, 208, 0.459) !important;
 }
+.card-quality {
+  background: rgba(226, 215, 215, 0.9) !important;
+  border-radius: 20px !important;
+}
 .product-card-container {
   display: flex;
   overflow-x: auto !important;
@@ -40,6 +44,7 @@ html {
   /* border-radius: 50px 5px 50px 5px; */
   /* min-width: 30% !important; */
   /* min-height: 60vh !important; */
+  transition: background 0.5s ease-in-out;
 }
 .product-card-body {
   min-height: 60%;
@@ -48,14 +53,86 @@ html {
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  /* transition: background 1s linear; */
+  transition: background 0.5s ease-in-out;
 }
+
 .product-card-name {
   overflow-x: auto !important;
 }
 .product-card-count-cart {
   text-align: center;
   vertical-align: middle;
+}
+.notification {
+  opacity: 0;
+  transform-origin: bottom;
+  /*-webkit-animation: notify-fadeIn 2s ease-in-out 2s 1 forwards,
+    notify-fadeOut 2s ease-out 8s 1 forwards;
+  animation: notify-fadeIn 2s ease-in-out 2s 1 forwards,
+    notify-fadeOut 2s ease-out 8s 1 forwards;*/
+}
+@-webkit-keyframes notify-fadeIn {
+  0% {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+  25% {
+    transform: scaleX(0.25);
+    opacity: 0.25;
+  }
+  50% {
+    transform: scale(0.5);
+    opacity: 0.5;
+  }
+  75% {
+    transform: scale(0.75);
+    opacity: 0.75;
+  }
+  100% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+  /* 65% {
+    transform: scaleX(0.25);
+  }
+  95% {
+    transform: scaleX(0.25);
+  }
+  100% {
+    transform: scaleX(0);
+  } */
+}
+
+@keyframes notify-fadeIn {
+  0% {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+
+  100% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+@-webkit-keyframes notify-fadeOut {
+  0% {
+    opacity: 1;
+    scaley: 1;
+  }
+  100% {
+    opacity: 0;
+    scaley: 0;
+  }
+}
+@keyframes notify-fadeOut {
+  0% {
+    opacity: 1;
+    scaley: 1;
+  }
+  100% {
+    opacity: 0;
+    scaley: 0;
+  }
 }
 [data-title] {
   font-size: 18px;
@@ -93,7 +170,7 @@ body {
 .main-body {
   padding-bottom: 0rem !important;
 }
-.card:hover {
+.product-card:hover {
   transform: scale(1.01);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.06);
 }
