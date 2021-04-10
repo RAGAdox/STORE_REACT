@@ -57,7 +57,7 @@ const NewCard = ({
   const addItemToCart = () =>
     addToCart && (
       <button
-        className="btn btn-success btn-block rounded shadow col my-1"
+        className="btn amber btn-block rounded shadow col my-1"
         onClick={addProductToCart}
         disabled={product.stock > 0 ? false : true}
       >
@@ -117,10 +117,10 @@ const NewCard = ({
 
   return (
     <div
-      className={`card rounded-lg m-1 p-1 text-center   text-white ${
+      className={`card rounded-lg m-1 p-1 text-center card-bg  text-white ${
         stackOrientation == "row" ? " col-2 product-card " : "col-8 "
       }`}
-      style={{ background: bgColor[index] }}
+      // style={{ background: bgColor[index] }}
     >
       <div className="product-card-body ">
         {showImages()}

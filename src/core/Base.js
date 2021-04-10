@@ -18,7 +18,7 @@ export default function Base({
       <Menu />
 
       <div
-        className={`container-fluid main-body-scroll p-3 col-md-8 ${mainClassName}`}
+        className={`container-fluid main-body-scroll p-3 col-md-8 text-white ${mainClassName}`}
       >
         {displayTitleDescription && (
           <div className="jumbotron text-center main-body">

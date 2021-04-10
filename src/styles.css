@@ -1,7 +1,19 @@
 html {
   scroll-behavior: smooth;
 }
-
+.border {
+  border-width: 0.2em !important;
+}
+.main-body-scroll {
+  padding-bottom: 5rem !important;
+  margin-top: 10vh;
+}
+body {
+  min-height: auto;
+  padding-top: 50px;
+  background: #190051;
+  /*padding-top: 4.5rem;*/
+}
 .paralax-background {
   background-attachment: fixed;
   background-size: 85vh !important;
@@ -27,7 +39,8 @@ html {
   background: rgba(209, 208, 208, 0.459) !important;
 }
 .card-quality {
-  background: rgba(226, 215, 215, 0.9) !important;
+  background: #4700e0 !important;
+  color: #f5e3e0;
   border-radius: 20px !important;
 }
 .product-card-container {
@@ -39,6 +52,10 @@ html {
 }
 .product-card-container-col {
   flex-direction: column !important;
+}
+.card-bg {
+  background: #61e8e1 !important;
+  color: #c86956 !important;
 }
 .product-card {
   /* border-radius: 50px 5px 50px 5px; */
@@ -62,6 +79,9 @@ html {
 .product-card-count-cart {
   text-align: center;
   vertical-align: middle;
+}
+.amber {
+  background: #ff7f11;
 }
 .notification {
   opacity: 0;
@@ -151,19 +171,7 @@ html {
   border: 8px solid transparent;
   border-bottom: 8px solid #000;
 }
-.border {
-  border-width: 0.2em !important;
-}
-.main-body-scroll {
-  padding-bottom: 5rem !important;
-  margin-top: 10vh;
-}
-body {
-  min-height: auto;
-  padding-top: 50px;
-  background: #d84c4c;
-  /*padding-top: 4.5rem;*/
-}
+
 .jumbotron {
   background-color: transparent !important;
 }
