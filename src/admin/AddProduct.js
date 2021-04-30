@@ -80,7 +80,8 @@ const AddProduct = ({ history }) => {
       const value = event.target.value;
       formData.set(name, value);
       setValues({ ...values, [name]: value });
-    } else {
+    } else if(event.target.files.length>0){
+      setValues({...values,loading:true})
       formData.delete(name);
       const options = {
         maxSizeMB: 0.1,
@@ -98,12 +99,13 @@ const AddProduct = ({ history }) => {
               compressedFile.size / (1024 * 1024)
             );
             formData.append(name, compressedFile);
-            setValues({ ...values, [name]: compressedFile });
+            setValues({ ...values, [name]: compressedFile,loading:false});
           });
         } else {
           setFileValidationError({
             error: "Only Images are supported as of now ",
           });
+          setValues({ ...values,loading:false});
         }
         setFileList((fileList) => [...fileList, imageFile.name]);
       }
