@@ -48,7 +48,7 @@ const NewCard = ({
       clearInterval(interval);
     };
   }, []);
-  const addProductToCart = () => {
+  const addProductToCart = () => {   
     addItemToCard(product, () => setRedirect(true));
   };
   const getRedirect = (redirect) => {
